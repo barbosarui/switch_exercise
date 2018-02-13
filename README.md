@@ -1,29 +1,29 @@
-##Bet:
+## Bet:
 
 This is what a bet is all about
 
-  ###Competition:
+  ### Competition:
 
     * Has a name
     * Has one or more events
 
-  ###Event:
+  ### Event:
 
     * Has a name
     * Has one or more markets
 
-  ###Market:
+  ### Market:
 
     * Is something you can bet on
     * Has a name
     * Has an id
     * Has odds (probability of a team winning. The bigger the odd, less likely that team will win)
 
-  ###Stake:
+  ### Stake:
 
     * How much you bet on an odd (e.g. bet of: odd - 1.3, stake - 2€)
 
-  ###Profit:
+  ### Profit:
 
     * How much muney you'll get if you win (e.g. profit: stake * odd - stake | 2 * 1.3 - 2 = 0.6€ profit)
 
