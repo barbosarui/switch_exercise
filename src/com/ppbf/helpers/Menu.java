@@ -12,8 +12,8 @@ public class Menu {
     }
 
     public static void printSubMenu() {
-        System.out.println("1. See total cash");
-        System.out.println("2. Insert bet");
+        System.out.println("1. Make Bets");
+        System.out.println("2. Calc Profit/Loss");
         System.out.println("0. Quit");
         System.out.print("Choose menu item: ");
     }
