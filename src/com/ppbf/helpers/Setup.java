@@ -7,8 +7,9 @@ import static com.ppbf.helpers.Menu.printSubMenu;
 import com.ppbf.sandbox.Sandbox;
 import java.io.FileNotFoundException;
 import java.math.BigDecimal;
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 
 public class Setup {
@@ -48,7 +49,7 @@ public class Setup {
                     lines = readFromFile("resources/eventsWithDuplicates.csv");
 
                     BigDecimal TOTAL_CASH = new BigDecimal("30.1");
-                    List<String> bets = new ArrayList<>();
+                    Map<String, BigDecimal> bets = new HashMap<>();
 
                     boolean exit = false;
 
@@ -62,7 +63,7 @@ public class Setup {
                                 bets = Sandbox.ex3_1(lines, TOTAL_CASH);
                                 break;
                             case 2:
-                                Sandbox.ex3_2(bets);
+                                Sandbox.ex3_2(lines, bets);
                                 break;
                             default:
                                 exit = true;
