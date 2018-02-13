@@ -48,7 +48,7 @@ public class Setup {
                     // readFromFile returns a List with each entry representing a line of the file.
                     lines = readFromFile("resources/eventsWithDuplicates.csv");
 
-                    BigDecimal TOTAL_CASH = new BigDecimal("30.1");
+                    BigDecimal TOTAL_MONEY = new BigDecimal("30.1");
                     Map<String, BigDecimal> bets = new HashMap<>();
 
                     boolean exit = false;
@@ -60,7 +60,7 @@ public class Setup {
 
                         switch (selection) {
                             case 1:
-                                bets = Sandbox.ex3_1(lines, TOTAL_CASH);
+                                bets = Sandbox.ex3_1(lines, TOTAL_MONEY);
                                 break;
                             case 2:
                                 Sandbox.ex3_2(lines, bets);
