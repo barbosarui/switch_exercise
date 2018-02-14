@@ -25,7 +25,7 @@ This is what a bet is all about
 
   ### Profit:
 
-    - How much muney you'll get if you win (e.g. profit: stake * odd - stake | 2 * 1.3 - 2 = 0.6€ profit)
+    - How much money you'll get if you win (e.g. profit: stake * odd - stake | 2 * 1.3 - 2 = 0.6€ profit)
 
 ```
 Champions League;  Liverpool vs Porto;   Liverpool Wins;  1;  1.0

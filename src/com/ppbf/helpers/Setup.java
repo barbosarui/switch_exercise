@@ -2,11 +2,11 @@ package com.ppbf.helpers;
 
 import static com.ppbf.helpers.File.readFromFile;
 import static com.ppbf.helpers.Menu.printMenu;
-import static com.ppbf.helpers.Menu.printSubMenu;
 
 import com.ppbf.sandbox.Sandbox;
 import java.io.FileNotFoundException;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -46,37 +46,29 @@ public class Setup {
                     break;
                 case 3:
                     // readFromFile returns a List with each entry representing a line of the file.
-                    lines = readFromFile("resources/eventsWithDuplicates.csv");
+                    lines = readFromFile("resources/eventsWithoutDuplicates.csv");
 
                     BigDecimal TOTAL_MONEY = new BigDecimal("30.1");
-                    Map<String, BigDecimal> bets = new HashMap<>();
 
-                    boolean exit = false;
+                    List<Long> removedMarkets = new ArrayList<>();
+
+                    Map<Long, BigDecimal> bets = new HashMap<>();
 
                     do {
-                        printSubMenu();
+                        System.out.println("Total Money:" + TOTAL_MONEY);
 
-                        int selection = in.nextInt();
+                        System.out.println(lines);
 
-                        switch (selection) {
-                            case 1:
-                                bets = Sandbox.ex3_1(lines, TOTAL_MONEY);
-                                break;
-                            case 2:
-                                Sandbox.ex3_2(lines, bets);
-                                break;
-                            default:
-                                exit = true;
-                                break;
-                        }
-                    } while (!exit);
+                        System.out.print("Choose marketId:");
+                        marketId = in.nextLong();
 
+                    } while (TOTAL_MONEY.compareTo(BigDecimal.ZERO) > 0);
                     break;
                 case 0:
                     quit = true;
                     break;
                 default:
-                    System.out.println("Invalid choice.");
+                    System.out.println("ERROR: Invalid choice.");
             }
         } while (!quit);
 
