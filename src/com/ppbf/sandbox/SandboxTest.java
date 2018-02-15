@@ -38,30 +38,32 @@ public class SandboxTest {
         expected.add(ex2);
 
         List<Bet> actual = Sandbox.ex1(lines, 2);
-        assertEquals(actual, expected);
+
+        assertEquals(expected, actual);
     }
 
     @Test
     public void ex2() throws Exception {
-        Bet ex1 = new Bet("Champions League",
+        Bet bet1 = new Bet("Champions League",
             new Event("Liverpool vs Porto",
                 new Market("Liverpool Wins", 2, new BigDecimal("1.0"))));
 
-        Bet ex2 = new Bet("Champions League",
+        Bet bet2 = new Bet("Champions League",
             new Event("Liverpool vs Porto",
                 new Market("Draw", 2, new BigDecimal("2.0"))));
 
-        Bet ex3 = new Bet("Champions League",
+        Bet bet3 = new Bet("Champions League",
             new Event("Liverpool vs Porto",
                 new Market("Liverpool Wins", 1, new BigDecimal("3.0"))));
 
         List<Bet> expected = new ArrayList<>();
-        expected.add(ex3);
-        expected.add(ex2);
-        expected.add(ex1);
+        expected.add(bet3);
+        expected.add(bet1);
+        expected.add(bet2);
 
         List<Bet> actual = Sandbox.ex2(lines);
-        assertEquals(actual, expected);
+
+        assertEquals(expected, actual);
     }
 
     @Test

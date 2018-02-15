@@ -17,7 +17,7 @@ public class Sandbox {
     }
 
     // Ex2: Given a List of lines on the file;
-    //      Write a function that sorts the competitions by odd value (ascending).
+    //      Write a function that sorts the competitions by reversed alphabetical order.
     // TIP: sort the whole line
     public static List<Bet> ex2(List<String> lines) {
         System.out.println("Not implemented yet");

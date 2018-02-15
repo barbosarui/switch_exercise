@@ -62,6 +62,11 @@ public class Setup {
                         System.out.print("Choose marketId:");
                         marketId = in.nextLong();
 
+                        System.out.print("Stake:");
+                        BigDecimal stake = in.nextBigDecimal();
+
+                        Sandbox.validateAndUpdateTotalMoney(lines, TOTAL_MONEY, marketId, stake);
+
                     } while (TOTAL_MONEY.compareTo(BigDecimal.ZERO) > 0);
                     break;
                 case 0:
