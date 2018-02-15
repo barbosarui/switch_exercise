@@ -57,7 +57,10 @@ public class Setup {
                     do {
                         System.out.println("Total Money:" + TOTAL_MONEY);
 
-                        System.out.println(lines);
+                        
+                        for (String eachLines : lines) {
+                            System.out.println(eachLines);
+                        }
 
                         System.out.print("Choose marketId:");
                         marketId = in.nextLong();
@@ -65,9 +68,18 @@ public class Setup {
                         System.out.print("Stake:");
                         BigDecimal stake = in.nextBigDecimal();
 
-                        Sandbox.validateAndUpdateTotalMoney(lines, TOTAL_MONEY, marketId, stake);
+                        BigDecimal newTotalMoney = Sandbox.validateAndUpdateTotalMoney(lines, TOTAL_MONEY, marketId, stake);
+                        
+                        if(newTotalMoney.compareTo(TOTAL_MONEY) != 0) {
+                            Sandbox.addMarketAndStateToMap(bets, marketId, stake);
+                        }
 
                     } while (TOTAL_MONEY.compareTo(BigDecimal.ZERO) > 0);
+                    
+                    // calculateWinners
+                    BigDecimal totalPL = Sandbox.calculateWinners(lines, bets);
+                    System.out.print("Total profil/loss = " + totalPL);
+                    
                     break;
                 case 0:
                     quit = true;
