@@ -24,7 +24,7 @@ public class Sandbox {
 		String marketIdString = String.valueOf(marketId);
 		for (String eachLine : lines) {
 			String[] lineParts = eachLine.split(";");
-			if (lineParts[3].equals(marketIdString)) {
+			if (lineParts.length >= 5 && lineParts[3].equals(marketIdString)) {
 				Bet resultBet = createBet(lineParts[0], lineParts[1],
 						lineParts[2], marketIdString, lineParts[4]);
 				results.add(resultBet);
@@ -37,18 +37,11 @@ public class Sandbox {
     //      Write a function that sorts the competitions by reversed alphabetical order.
     // TIP: sort the whole line
     public static List<Bet> ex2(List<String> lines) {
-    	// remove header of eventsWithDuplicates.csv
-    	lines.remove(0);
     	
     	List<Bet> betList = getListOfBets(lines);
-		
-    	// sort
-		Collections.sort(betList, new Comparator<Bet>() {
-            @Override
-            public int compare(Bet left, Bet right) {
-                return right.event.market.name.compareTo(left.event.market.name);
-            }
-        });
+    	
+		Collections.sort(betList, (left, right) -> right.event.market.name
+				.compareTo(left.event.market.name));
 		
         return betList;
     }
@@ -67,13 +60,22 @@ public class Sandbox {
     	List<Bet> betList = new ArrayList<>();
 		for (String eachLine : lines) {
 			String[] lineParts = eachLine.split(";");
-			if (lineParts.length >= 5) {
+			if (lineParts.length >= 5 && validMarketId(lineParts[3])) {
 				Bet resultBet = createBet(lineParts[0], lineParts[1],
 						lineParts[2], lineParts[3], lineParts[4]);
 				betList.add(resultBet);
 			}
 		}
 		return betList;
+	}
+	
+	private static boolean validMarketId(String input) {
+		try {
+			Long.parseLong(input);
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
 	}
 
     // Ex3: Given a List of lines on the file;

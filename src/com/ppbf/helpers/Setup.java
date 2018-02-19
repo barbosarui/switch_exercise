@@ -4,10 +4,13 @@ import static com.ppbf.helpers.File.readFromFile;
 import static com.ppbf.helpers.Menu.printMenu;
 
 import com.ppbf.sandbox.Sandbox;
+import com.ppbf.solutions.models.Bet;
+
 import java.io.FileNotFoundException;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
@@ -31,17 +34,17 @@ public class Setup {
                     // readFromFile returns a List with each entry representing a line of the file.
                     List<String> lines = readFromFile("resources/eventsWithDuplicates.csv");
 
-                    System.out.print("Choose marketId:");
+                    System.out.print("Choose marketId: ");
                     long marketId = in.nextLong();
 
-                    Sandbox.ex1(lines, marketId);
+                    printBetsList(Sandbox.ex1(lines, marketId));
 
                     break;
                 case 2:
                     // readFromFile returns a List with each entry representing a line of the file.
                     lines = readFromFile("resources/eventsWithDuplicates.csv");
 
-                    Sandbox.ex2(lines);
+                    printBetsList(Sandbox.ex2(lines));
 
                     break;
                 case 3:
@@ -49,13 +52,14 @@ public class Setup {
                     lines = readFromFile("resources/eventsWithoutDuplicates.csv");
 
                     BigDecimal TOTAL_MONEY = new BigDecimal("30.1");
+                    BigDecimal newTotalMoney = TOTAL_MONEY;
 
                     List<Long> removedMarkets = new ArrayList<>();
 
                     Map<Long, BigDecimal> bets = new HashMap<>();
 
                     do {
-                        System.out.println("Total Money:" + TOTAL_MONEY);
+                        System.out.println("Total Money:" + newTotalMoney);
 
                         
                         for (String eachLines : lines) {
@@ -66,15 +70,24 @@ public class Setup {
                         marketId = in.nextLong();
 
                         System.out.print("Stake:");
-                        BigDecimal stake = in.nextBigDecimal();
-
-                        BigDecimal newTotalMoney = Sandbox.validateAndUpdateTotalMoney(lines, TOTAL_MONEY, marketId, stake);
-                        
-                        if(newTotalMoney.compareTo(TOTAL_MONEY) != 0) {
-                            Sandbox.addMarketAndStateToMap(bets, marketId, stake);
+                        BigDecimal stake = BigDecimal.ZERO;
+                        try {
+                        	stake = in.nextBigDecimal();
+                        } catch (InputMismatchException e) {
+                        	System.out.println("ERROR: Use , for decimal separator.");
+                        	in.next();
                         }
+                        
 
-                    } while (TOTAL_MONEY.compareTo(BigDecimal.ZERO) > 0);
+						newTotalMoney = Sandbox
+								.validateAndUpdateTotalMoney(lines, TOTAL_MONEY,
+										marketId, stake);
+                        
+						if (newTotalMoney.compareTo(TOTAL_MONEY) != 0) {
+							Sandbox.addMarketAndStateToMap(bets, marketId, stake);
+						}
+
+                    } while (newTotalMoney.compareTo(BigDecimal.ZERO) > 0);
                     
                     // calculateWinners
                     BigDecimal totalPL = Sandbox.calculateWinners(lines, bets);
@@ -91,4 +104,17 @@ public class Setup {
 
         System.out.println("Bye-bye!");
     }
+    
+    
+    private static void printBetsList(List<Bet> betsList) {
+    	if(betsList.isEmpty()) {
+    		System.out.println("Empty...");
+    	} else {
+        	for(Bet eachBet : betsList) {
+        		System.out.println(eachBet);
+        	}
+    	}
+
+    }
+    
 }
